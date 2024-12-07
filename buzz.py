@@ -4,17 +4,22 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
+def beepOn(delaySeconds, GPIO, pinNumber):
+    GPIO.output(pinNumber, GPIO.LOW)
+    sleep(delaySeconds)
+
+def beepOff(delaySeconds, GPIO, pinNumber):
+    GPIO.output(pinNumber, GPIO.HIGH)
+    sleep(delaySeconds)
+
+pin = 11
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11, GPIO.OUT)
+GPIO.setup(pin, GPIO.OUT)
 try:
 	while True:
-		print("Beep ON")
-		GPIO.output(11, GPIO.LOW)
-		sleep(0.2)
-
-		print("Beep OFF")
-		GPIO.output(11, GPIO.HIGH)
-		sleep(0.6)
+		beepOn(0.5, GPIO, pin)
+		beepOff(0.5, GPIO, pin)
 		
 finally:
 	GPIO.cleanup()
+
